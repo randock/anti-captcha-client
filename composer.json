@@ -1,0 +1,14 @@
+{
+  "require": {
+    "php": ">=7.1",
+    "guzzlehttp/guzzle": "~6.0"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Randock\\": "src/"
+    }
+  }
+}
