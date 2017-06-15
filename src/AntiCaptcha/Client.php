@@ -16,7 +16,12 @@ class Client
     /**
      * @var string
      */
-    private $apiKey;
+    private $apiKey = null;
+
+    /**
+     * @var GuzzleClient
+     */
+    private $httpClient = null;
 
     /**
      * Client constructor.
@@ -95,6 +100,30 @@ class Client
     }
 
     /**
+     * @param GuzzleClient $httpClient
+     *
+     * @return Client
+     */
+    public function setHttpClient(GuzzleClient $httpClient): Client
+    {
+        $this->httpClient = $httpClient;
+
+        return $this;
+    }
+
+    /**
+     * @return GuzzleClient
+     */
+    public function getHttpClient(): GuzzleClient
+    {
+        if ($this->httpClient === null) {
+            $this->httpClient = new GuzzleClient();
+        }
+
+        return $this->httpClient;
+    }
+
+    /**
      * Handles the request and returns the response.
      *
      * @param string         $path
@@ -107,10 +136,15 @@ class Client
         $data = $method->toArray();
         $data['clientKey'] = $this->getApiKey();
 
-        $client = new GuzzleClient();
-        $response = $client->post(sprintf('https://api.anti-captcha.com/%s', $path), [
-            'json' => $data,
-        ]);
+        $client = $this->getHttpClient();
+        $response = $client->post(
+            sprintf(
+                'https://api.anti-captcha.com/%s',
+                $path
+            ), [
+                'json' => $data,
+            ]
+        );
 
         // check if the response was "successful"
         if ($response->getStatusCode() !== 200) {
