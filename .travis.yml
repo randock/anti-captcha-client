@@ -1,3 +1,4 @@
+script: vendor/bin/phpunit --config phpunit.xml tests
 install: composer install
 language: php
 php:
