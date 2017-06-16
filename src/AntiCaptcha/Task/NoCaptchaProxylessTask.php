@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Randock\AntiCaptcha\Method\Task;
+namespace Randock\AntiCaptcha\Task;
 
-class NoCaptchaProxylessTask extends AbstractTask
+use Randock\AntiCaptcha\Definition\ArraySerializable;
+
+class NoCaptchaProxylessTask extends Task implements ArraySerializable
 {
     /**
      * @var string
@@ -14,12 +16,26 @@ class NoCaptchaProxylessTask extends AbstractTask
     /**
      * @var string
      */
-    private $websiteUrl;
+    private $websiteUrl = null;
 
     /**
      * @var string
      */
-    private $websiteKey;
+    private $websiteKey = null;
+
+    /**
+     * NoCaptchaProxylessTask constructor.
+     *
+     * @param string   $websiteUrl
+     * @param string   $websiteKey
+     * @param int|null $id
+     */
+    public function __construct(string $websiteUrl, string $websiteKey, int $id = null)
+    {
+        parent::__construct($id);
+        $this->websiteUrl = $websiteUrl;
+        $this->websiteKey = $websiteKey;
+    }
 
     /**
      * @return string

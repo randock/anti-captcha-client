@@ -4,12 +4,8 @@ declare(strict_types=1);
 
 namespace Randock\AntiCaptcha\Method;
 
-abstract class AbstractMethod
+use Randock\AntiCaptcha\Definition\ArraySerializable;
+
+abstract class AbstractMethod implements ArraySerializable
 {
-    /**
-     * convert the method to a array that the api can actually understand.
-     *
-     * @return array
-     */
-    abstract public function toArray(): array;
 }

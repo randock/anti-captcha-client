@@ -6,9 +6,9 @@ namespace Tests\Randock\AntiCaptcha\Client;
 
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
-use Randock\AntiCaptcha\Exception\InvalidRequestException;
 use Randock\AntiCaptcha\QueueStats;
 use Tests\Randock\AntiCaptcha\ClientTest;
+use Randock\AntiCaptcha\Exception\InvalidRequestException;
 
 class QueueStatsTest extends TestCase
 {
@@ -35,10 +35,9 @@ class QueueStatsTest extends TestCase
         $this->assertInstanceOf(QueueStats::class, $queueStats);
         $this->assertSame($body['waiting'], $queueStats->getWaiting());
         $this->assertSame($body['load'], $queueStats->getLoad());
-        $this->assertSame((float)$body['bid'], $queueStats->getBid());
+        $this->assertSame((float) $body['bid'], $queueStats->getBid());
         $this->assertSame($body['speed'], $queueStats->getSpeed());
         $this->assertSame($body['total'], $queueStats->getTotal());
-
     }
 
     /**

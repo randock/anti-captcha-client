@@ -4,39 +4,41 @@ declare(strict_types=1);
 
 namespace Randock\AntiCaptcha\Method;
 
+use Randock\AntiCaptcha\Task\Task;
+
 class GetTaskResultMethod extends AbstractMethod
 {
     /**
-     * @var int
+     * @var Task
      */
-    private $taskId;
+    private $task;
 
     /**
      * GetTaskResultMethod constructor.
      *
-     * @param int $taskId
+     * @param Task $task
      */
-    public function __construct($taskId)
+    public function __construct($task)
     {
-        $this->taskId = $taskId;
+        $this->task = $task;
     }
 
     /**
-     * @return int
+     * @return Task
      */
-    public function getTaskId(): int
+    public function getTask(): Task
     {
-        return $this->taskId;
+        return $this->task;
     }
 
     /**
-     * @param int $taskId
+     * @param Task $task
      *
      * @return GetTaskResultMethod
      */
-    public function setTaskId(int $taskId): GetTaskResultMethod
+    public function setTask(Task $task): GetTaskResultMethod
     {
-        $this->taskId = $taskId;
+        $this->task = $task;
 
         return $this;
     }
@@ -47,7 +49,7 @@ class GetTaskResultMethod extends AbstractMethod
     public function toArray(): array
     {
         return [
-            'taskId' => $this->getTaskId(),
+            'taskId' => $this->getTask()->getId(),
         ];
     }
 }

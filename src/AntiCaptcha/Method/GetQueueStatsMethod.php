@@ -60,18 +60,6 @@ class GetQueueStatsMethod extends AbstractMethod
     }
 
     /**
-     * @param int $queueId
-     *
-     * @return GetQueueStatsMethod
-     */
-    public function setQueueId(int $queueId): GetQueueStatsMethod
-    {
-        $this->queueId = $queueId;
-
-        return $this;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function toArray(): array

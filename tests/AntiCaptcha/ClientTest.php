@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Tests\Randock\AntiCaptcha;
 
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use Randock\AntiCaptcha\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Client as GuzzleClient;
+use Randock\AntiCaptcha\Exception\InvalidRequestException;
 
 class ClientTest extends TestCase
 {
@@ -37,6 +39,36 @@ class ClientTest extends TestCase
         // api key
         $client->setApiKey(self::NEW_API_KEY);
         $this->assertSame(self::NEW_API_KEY, $client->getApiKey());
+    }
+
+    public function testDefaultGuzzleClient()
+    {
+        $client = self::newClient();
+        $this->assertInstanceOf(GuzzleClient::class, $client->getHttpClient());
+    }
+
+    public function testStatusCodeFailure()
+    {
+        $this->expectException(InvalidRequestException::class);
+        $client = self::newClient(
+            [
+                new Response(301),
+            ]
+        );
+
+        $client->getBalance();
+    }
+
+    public function testInvalidJsonResponse()
+    {
+        $this->expectException(InvalidRequestException::class);
+        $client = self::newClient(
+            [
+                new Response(200, [], 'asdf'),
+            ]
+        );
+
+        $client->getBalance();
     }
 
     /**

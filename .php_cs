@@ -29,7 +29,6 @@ return PhpCsFixer\Config::create()
         'no_useless_return' => true,
         'ordered_class_elements' => true,
         'ordered_imports' => ['sortAlgorithm' => 'length'],
-        'php_unit_strict' => true,
         'phpdoc_add_missing_param_annotation' => true,
         'phpdoc_order' => true,
         'semicolon_after_instruction' => true,

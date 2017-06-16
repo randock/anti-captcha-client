@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Randock\AntiCaptcha\Method\Task;
+namespace Randock\AntiCaptcha\Task;
 
-class ImageToTextTask extends AbstractTask
+use Randock\AntiCaptcha\Definition\ArraySerializable;
+
+class ImageToTextTask extends Task implements ArraySerializable
 {
     /**
      * @var string

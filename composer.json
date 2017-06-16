@@ -11,5 +11,10 @@
     "psr-4": {
       "Randock\\": "src/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\Randock\\": "tests/"
+    }
   }
 }

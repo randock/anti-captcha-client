@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace Randock\AntiCaptcha;
 
+use Randock\AntiCaptcha\Task\Task;
 use GuzzleHttp\Client as GuzzleClient;
 use Randock\AntiCaptcha\Method\AbstractMethod;
+use Randock\AntiCaptcha\Method\CreateTaskMethod;
 use Randock\AntiCaptcha\Method\GetBalanceMethod;
-use Randock\AntiCaptcha\Method\Task\AbstractTask;
 use Randock\AntiCaptcha\Method\GetQueueStatsMethod;
+use Randock\AntiCaptcha\Method\GetTaskResultMethod;
+use Randock\AntiCaptcha\Solution\NoCaptchaSolution;
+use Randock\AntiCaptcha\Solution\ImageToTextSolution;
 use Randock\AntiCaptcha\Exception\InvalidRequestException;
+use Randock\AntiCaptcha\Exception\UnknownSolutionException;
 
 class Client
 {
@@ -88,15 +93,47 @@ class Client
     /**
      * Create a captcha task.
      *
-     * @param AbstractTask $task
+     * @param CreateTaskMethod $task
      *
      * @return Task
      */
-    public function createTask(AbstractTask $task): Task
+    public function createTask(Task $task): Task
     {
-        $response = $this->handle('createTask', $task);
+        $response = $this->handle('createTask', new CreateTaskMethod($task));
+        $task->setId($response->taskId);
 
-        return new Task($response->taskId);
+        return $task;
+    }
+
+    /**
+     * @param Task $task
+     *
+     * @return TaskResult
+     */
+    public function getTaskResult(Task $task): TaskResult
+    {
+        $response = $this->handle('getTaskResult', new GetTaskResultMethod($task));
+
+        $taskResult = new TaskResult($response->status);
+        if ($taskResult->getStatus() === TaskResult::STATUS_READY) {
+            $taskResult->setCost((float) $response->cost);
+            $taskResult->setCreateTime(new \DateTime(sprintf('@%s', $response->createdTime)));
+            $taskResult->setEndTime(new \DateTime(sprintf('@%s', $response->endTime)));
+            $taskResult->setIp($response->ip);
+            $taskResult->setSolveCount((int) $response->solveCount);
+
+            if (isset($response->solution->text)) {
+                $solution = new ImageToTextSolution($response->solution->text, $response->solution->url);
+                $taskResult->setSolution($solution);
+            } elseif (isset($response->solution->gRecaptchaResponse)) {
+                $solution = new NoCaptchaSolution($response->solution->gRecaptchaResponse);
+                $taskResult->setSolution($solution);
+            } else {
+                throw new UnknownSolutionException();
+            }
+        }
+
+        return $taskResult;
     }
 
     /**
@@ -154,7 +191,7 @@ class Client
         // check for valid json
         $json = json_decode((string) $response->getBody());
         if ($json === null) {
-            throw new InvalidRequestException($response->getBody());
+            throw new InvalidRequestException((string) $response->getBody());
         }
 
         // even though it appears to have succeeded, errors are returned in the body
