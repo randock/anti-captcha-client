@@ -1,4 +1,13 @@
 {
+  "name": "randock/anti-captcha-client",
+  "description": "A PHP library to connect to https://anti-captcha.com",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Jop Peters",
+      "email": "jop@randock.com"
+    }
+  ],
   "require": {
     "php": ">=7.1",
     "guzzlehttp/guzzle": "~6.0"

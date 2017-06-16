@@ -14,6 +14,9 @@ use Randock\AntiCaptcha\Exception\InvalidRequestException;
 
 class CreateTaskTest extends TestCase
 {
+    /**
+     * Create a new task "TextToCaptcha"
+     */
     public function testCreateImageToTextCaptchaSuccess()
     {
         $body = [
@@ -34,6 +37,9 @@ class CreateTaskTest extends TestCase
         $this->assertSame($body['taskId'], $task->getId());
     }
 
+    /**
+     * Create a new task "NoCaptcha"
+     */
     public function testCreateNoCaptchaSuccess()
     {
         $body = [
@@ -54,6 +60,9 @@ class CreateTaskTest extends TestCase
         $this->assertSame($body['taskId'], $task->getId());
     }
 
+    /**
+     * Create a task - exception
+     */
     public function testCreateTaskException()
     {
         $this->expectException(InvalidRequestException::class);

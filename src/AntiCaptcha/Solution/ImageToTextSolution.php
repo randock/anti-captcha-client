@@ -22,7 +22,7 @@ class ImageToTextSolution extends AbstractSolution
      * @param string $text
      * @param string $url
      */
-    public function __construct($text, $url)
+    public function __construct(string $text, string $url)
     {
         $this->text = $text;
         $this->url = $url;
