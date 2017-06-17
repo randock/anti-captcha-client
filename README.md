@@ -1,4 +1,4 @@
-![Build Status](https://api.travis-ci.org/randock/anti-captcha-client.svg?branch=master)
+[![Build Status](https://travis-ci.org/randock/anti-captcha-client.svg?branch=master)](https://travis-ci.org/randock/anti-captcha-client)
 
 Anti-captcha API
 ===============
