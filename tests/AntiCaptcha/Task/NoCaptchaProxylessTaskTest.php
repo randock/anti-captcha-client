@@ -12,22 +12,22 @@ class NoCaptchaProxylessTaskTest extends TestCase
     /**
      * @var string
      */
-    const WEBSITE_URL = 'http://www.google.nl';
+    public const WEBSITE_URL = 'http://www.google.nl';
 
     /**
      * @var string
      */
-    const WEBSITE_KEY = 'asdf9df(S_221111';
+    public const WEBSITE_KEY = 'asdf9df(S_221111';
 
     /**
      * @var string
      */
-    const NEW_WEBSITE_URL = 'http://www.nu.nl';
+    public const NEW_WEBSITE_URL = 'http://www.nu.nl';
 
     /**
      * @var string
      */
-    const NEW_WEBSITE_KEY = 'xxsadfasdf@#!#$(S_221111';
+    public const NEW_WEBSITE_KEY = 'xxsadfasdf@#!#$(S_221111';
 
     /**
      * Test instance of task is task.
@@ -38,26 +38,25 @@ class NoCaptchaProxylessTaskTest extends TestCase
     }
 
     /**
-     * Test if the class converts to array correctly
+     * Test if the class converts to array correctly.
      */
     public function testToArray()
     {
-
         $noCaptchaProxylessTask = self::newNoCaptchaProxylessTask();
 
         $expected = [
-            'task'=> [
+            'task' => [
                 'type' => NoCaptchaProxylessTask::TASK_TYPE,
                 'websiteURL' => self::WEBSITE_URL,
-                'websiteKey' => self::WEBSITE_KEY
-            ]
+                'websiteKey' => self::WEBSITE_KEY,
+            ],
         ];
 
         $this->assertSame($expected, $noCaptchaProxylessTask->toArray());
     }
 
     /**
-     * Test if all getters and setters are working
+     * Test if all getters and setters are working.
      */
     public function testGettersAndSetters()
     {
@@ -72,7 +71,8 @@ class NoCaptchaProxylessTaskTest extends TestCase
         $this->assertSame(self::NEW_WEBSITE_KEY, $noCaptchaProxylessTask->getWebsiteKey());
     }
 
-    public function testConstructor() {
+    public function testConstructor()
+    {
         $noCaptchaProxylessTask = self::newNoCaptchaProxylessTask();
         $this->assertSame(self::WEBSITE_URL, $noCaptchaProxylessTask->getWebsiteUrl());
         $this->assertSame(self::WEBSITE_KEY, $noCaptchaProxylessTask->getWebsiteKey());

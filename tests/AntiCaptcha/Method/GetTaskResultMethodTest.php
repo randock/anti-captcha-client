@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Randock\AntiCaptcha\Method;
 
-use Randock\AntiCaptcha\Method\GetTaskResultMethod;
 use PHPUnit\Framework\TestCase;
-use Randock\AntiCaptcha\Task\ImageToTextTask;
+use Randock\AntiCaptcha\Method\GetTaskResultMethod;
 use Tests\Randock\AntiCaptcha\Task\ImageToTextTaskTest;
 use Tests\Randock\AntiCaptcha\Task\NoCaptchaProxylessTaskTest;
 
@@ -19,13 +20,13 @@ class GetTaskResultMethodTest extends TestCase
     }
 
     /**
-     * Test conversion to array
+     * Test conversion to array.
      */
     public function testToArray()
     {
         $getTaskResultMethod = self::newGetTaskResultMethod();
         $expected = [
-            'taskId' => $getTaskResultMethod->getTask()->getId()
+            'taskId' => $getTaskResultMethod->getTask()->getId(),
         ];
         $this->assertSame($expected, $getTaskResultMethod->toArray());
     }
@@ -38,7 +39,7 @@ class GetTaskResultMethodTest extends TestCase
     }
 
     /**
-     * Test the getters and setters
+     * Test the getters and setters.
      */
     public function testGettersAndSetters()
     {
@@ -48,7 +49,6 @@ class GetTaskResultMethodTest extends TestCase
         $task = NoCaptchaProxylessTaskTest::newNoCaptchaProxylessTask();
         $getTaskResultMethod->setTask($task);
         $this->assertSame($task, $getTaskResultMethod->getTask());
-
     }
 
     /**

@@ -1,53 +1,55 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Randock\AntiCaptcha;
 
-use Randock\AntiCaptcha\QueueStats;
 use PHPUnit\Framework\TestCase;
+use Randock\AntiCaptcha\QueueStats;
 
 class QueueStatsTest extends TestCase
 {
     /**
      * @var int
      */
-    const WAITING = 123;
+    public const WAITING = 123;
 
     /**
      * @var float
      */
-    const LOAD = 25.123;
+    public const LOAD = 25.123;
 
     /**
      * @var float
      */
-    const BID = 0.007;
+    public const BID = 0.007;
 
     /**
      * @var float
      */
-    const SPEED = 23.22;
+    public const SPEED = 23.22;
 
     /**
      * @var int
      */
-    const TOTAL = 123;
+    public const TOTAL = 123;
 
     /**
      * @var float
      */
-    const BALANCE = 25.32;
+    public const BALANCE = 25.32;
 
     /**
-     * Test the instance of
+     * Test the instance of.
      */
     public function testInstanceOf()
     {
         $balance = self::newQueueStats();
-        $this->assertInstanceOf( QueueStats::class, $balance);
+        $this->assertInstanceOf(QueueStats::class, $balance);
     }
 
     /**
-     * Test getters and setters
+     * Test getters and setters.
      */
     public function testGettersAndSetters()
     {
@@ -62,7 +64,8 @@ class QueueStatsTest extends TestCase
     /**
      * @return QueueStats
      */
-    public static function newQueueStats(): QueueStats {
+    public static function newQueueStats(): QueueStats
+    {
         return new QueueStats(self::WAITING, self::LOAD, self::BID, self::SPEED, self::TOTAL);
     }
 }

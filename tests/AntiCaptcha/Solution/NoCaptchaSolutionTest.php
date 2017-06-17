@@ -1,17 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Randock\AntiCaptcha\Solution;
 
-use Randock\AntiCaptcha\Solution\NoCaptchaSolution;
 use PHPUnit\Framework\TestCase;
+use Randock\AntiCaptcha\Solution\NoCaptchaSolution;
 
 class NoCaptchaSolutionTest extends TestCase
 {
-
     /**
      * @var string
      */
-    const NO_GCAPTCHA_RESPONSE = 'aa';
+    public const NO_GCAPTCHA_RESPONSE = 'aa';
 
     /**
      * Test right instance.
@@ -22,7 +23,7 @@ class NoCaptchaSolutionTest extends TestCase
     }
 
     /**
-     * Test getters and setters
+     * Test getters and setters.
      */
     public function testGettersAndSetters()
     {
@@ -33,7 +34,8 @@ class NoCaptchaSolutionTest extends TestCase
     /**
      * @return NoCaptchaSolution
      */
-    public static function newNoCaptchaSolution(): NoCaptchaSolution {
+    public static function newNoCaptchaSolution(): NoCaptchaSolution
+    {
         return new NoCaptchaSolution(self::NO_GCAPTCHA_RESPONSE);
     }
 }

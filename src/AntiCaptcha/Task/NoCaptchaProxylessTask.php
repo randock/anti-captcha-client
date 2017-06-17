@@ -87,7 +87,7 @@ class NoCaptchaProxylessTask extends Task implements ArraySerializable
                 'type' => self::TASK_TYPE,
                 'websiteURL' => $this->getWebsiteUrl(),
                 'websiteKey' => $this->getWebsiteKey(),
-            ]
+            ],
         ];
     }
 }

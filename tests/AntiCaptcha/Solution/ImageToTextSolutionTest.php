@@ -1,22 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Randock\AntiCaptcha\Solution;
 
-use Randock\AntiCaptcha\Solution\ImageToTextSolution;
 use PHPUnit\Framework\TestCase;
+use Randock\AntiCaptcha\Solution\ImageToTextSolution;
 
 class ImageToTextSolutionTest extends TestCase
 {
+    /**
+     * @var string
+     */
+    public const TEXT = 'aa';
 
     /**
      * @var string
      */
-    const TEXT = 'aa';
-
-    /**
-     * @var string
-     */
-    const URL = 'http://www.google.nl';
+    public const URL = 'http://www.google.nl';
 
     /**
      * Test right instance.
@@ -27,7 +28,7 @@ class ImageToTextSolutionTest extends TestCase
     }
 
     /**
-     * Test getters and setters
+     * Test getters and setters.
      */
     public function testGettersAndSetters()
     {
@@ -39,7 +40,8 @@ class ImageToTextSolutionTest extends TestCase
     /**
      * @return ImageToTextSolution
      */
-    public static function newImageToTextSolution(): ImageToTextSolution {
+    public static function newImageToTextSolution(): ImageToTextSolution
+    {
         return new ImageToTextSolution(self::TEXT, self::URL);
     }
 }

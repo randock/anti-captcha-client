@@ -110,11 +110,12 @@ class ImageToTextTask extends Task implements ArraySerializable
     }
 
     /**
-     * Sets the captcha body from a given filename
+     * Sets the captcha body from a given filename.
      *
      * @param $filename
      *
      * @throws FileNotFoundException
+     *
      * @return ImageToTextTask
      */
     public function setBodyFromFile($filename): ImageToTextTask
@@ -129,8 +130,6 @@ class ImageToTextTask extends Task implements ArraySerializable
 
         return $this;
     }
-
-
 
     /**
      * @return bool
@@ -267,7 +266,7 @@ class ImageToTextTask extends Task implements ArraySerializable
                 'math' => $this->getMath(),
                 'minLength' => $this->getMinLength(),
                 'maxLength' => $this->getMaxLength(),
-            ]
+            ],
         ];
     }
 }

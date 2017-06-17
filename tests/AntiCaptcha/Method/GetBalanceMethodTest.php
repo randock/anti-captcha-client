@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Randock\AntiCaptcha\Method;
 
-use Randock\AntiCaptcha\Method\GetBalanceMethod;
 use PHPUnit\Framework\TestCase;
+use Randock\AntiCaptcha\Method\GetBalanceMethod;
 
 class GetBalanceMethodTest extends TestCase
 {
@@ -16,13 +18,13 @@ class GetBalanceMethodTest extends TestCase
     }
 
     /**
-     * Test conversion to array
+     * Test conversion to array.
      */
     public function testToArray()
     {
-       $getBalanceMethod = self::newGetBalanceMethod();
-       $expected = [];
-       $this->assertSame($expected, $getBalanceMethod->toArray());
+        $getBalanceMethod = self::newGetBalanceMethod();
+        $expected = [];
+        $this->assertSame($expected, $getBalanceMethod->toArray());
     }
 
     /**

@@ -9,16 +9,15 @@ use Randock\AntiCaptcha\Task\Task;
 
 class TaskTest extends TestCase
 {
+    /**
+     * @var int
+     */
+    public const ID = 1;
 
     /**
      * @var int
      */
-    const ID = 1;
-
-    /**
-     * @var int
-     */
-    const NEW_ID = 2;
+    public const NEW_ID = 2;
 
     /**
      * Test instance of task is task.
@@ -28,22 +27,21 @@ class TaskTest extends TestCase
         $this->assertInstanceOf(Task::class, self::newTask());
     }
 
-    
     /**
-     * Test conversion to array
+     * Test conversion to array.
      */
     public function testToArray()
     {
         $task = self::newTask();
         $expected = [
-            'id' => $task->getId()
+            'id' => $task->getId(),
         ];
 
         $this->assertSame($expected, $task->toArray());
     }
 
     /**
-     * Test getters and setters
+     * Test getters and setters.
      */
     public function testGettersAndSetters()
     {

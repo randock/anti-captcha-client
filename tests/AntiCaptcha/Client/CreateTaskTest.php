@@ -15,7 +15,7 @@ use Randock\AntiCaptcha\Exception\InvalidRequestException;
 class CreateTaskTest extends TestCase
 {
     /**
-     * Create a new task "TextToCaptcha"
+     * Create a new task "TextToCaptcha".
      */
     public function testCreateImageToTextCaptchaSuccess()
     {
@@ -38,7 +38,7 @@ class CreateTaskTest extends TestCase
     }
 
     /**
-     * Create a new task "NoCaptcha"
+     * Create a new task "NoCaptcha".
      */
     public function testCreateNoCaptchaSuccess()
     {
@@ -61,7 +61,7 @@ class CreateTaskTest extends TestCase
     }
 
     /**
-     * Create a task - exception
+     * Create a task - exception.
      */
     public function testCreateTaskException()
     {

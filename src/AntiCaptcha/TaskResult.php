@@ -192,21 +192,22 @@ class TaskResult
     }
 
     /**
-     * Check if the captcha has been processed
+     * Check if the captcha has been processed.
      *
      * @return bool
      */
-    public function isReady(): bool {
+    public function isReady(): bool
+    {
         return $this->getStatus() === self::STATUS_READY;
     }
 
     /**
-     * Check if the captcha is still processing
+     * Check if the captcha is still processing.
      *
      * @return bool
      */
-    public function isProcessing(): bool {
+    public function isProcessing(): bool
+    {
         return $this->getStatus() === self::STATUS_PROCESSING;
     }
-
 }

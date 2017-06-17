@@ -1,56 +1,56 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Randock\AntiCaptcha;
 
-use Randock\AntiCaptcha\TaskResult;
 use PHPUnit\Framework\TestCase;
+use Randock\AntiCaptcha\TaskResult;
 use Tests\Randock\AntiCaptcha\Solution\ImageToTextSolutionTest;
 
 class TaskResultTest extends TestCase
 {
-
     /**
      * @var string
      */
-    const IP = '127.0.0.1';
+    public const IP = '127.0.0.1';
 
     /**
      * @var int
      */
-    const SOLVE_COUNT = 123;
+    public const SOLVE_COUNT = 123;
 
     /**
      * @var int
      */
-    const CREATE_TIME = 1497631070;
+    public const CREATE_TIME = 1497631070;
 
     /**
      * @var int
      */
-    const END_TIME = 1497631080;
+    public const END_TIME = 1497631080;
 
     /**
      * @var float
      */
-    const COST = 0.007;
-
+    public const COST = 0.007;
 
     /**
      * @var string
      */
-    const STATUS = TaskResult::STATUS_READY;
+    public const STATUS = TaskResult::STATUS_READY;
 
     /**
-     * Test the instance of
+     * Test the instance of.
      */
     public function testInstanceOf()
     {
         $taskResult = self::newTaskResult();
-        $this->assertInstanceOf( TaskResult::class, $taskResult);
+        $this->assertInstanceOf(TaskResult::class, $taskResult);
     }
 
     /**
-     * Test getters and setters
+     * Test getters and setters.
      */
     public function testConstructor()
     {
@@ -91,10 +91,10 @@ class TaskResultTest extends TestCase
     }
 
     /**
-     * Check if the isReady method works as expected
+     * Check if the isReady method works as expected.
      */
-    public function testIsReady() {
-
+    public function testIsReady()
+    {
         // ready
         $taskResult = new TaskResult(TaskResult::STATUS_READY);
         $this->assertTrue($taskResult->isReady());
@@ -102,14 +102,13 @@ class TaskResultTest extends TestCase
         // not ready
         $taskResult = new TaskResult(TaskResult::STATUS_PROCESSING);
         $this->assertFalse($taskResult->isReady());
-
     }
 
     /**
-     * Check if the isProcessing method works as expected
+     * Check if the isProcessing method works as expected.
      */
-    public function testIsProcessing() {
-
+    public function testIsProcessing()
+    {
         // ready
         $taskResult = new TaskResult(TaskResult::STATUS_READY);
         $this->assertFalse($taskResult->isProcessing());
@@ -117,9 +116,7 @@ class TaskResultTest extends TestCase
         // not ready
         $taskResult = new TaskResult(TaskResult::STATUS_PROCESSING);
         $this->assertTrue($taskResult->isProcessing());
-
     }
-
 
     /**
      * @return TaskResult
@@ -128,5 +125,4 @@ class TaskResultTest extends TestCase
     {
         return new TaskResult(TaskResult::STATUS_READY);
     }
-
 }

@@ -1,21 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Randock\AntiCaptcha;
 
-use Randock\AntiCaptcha\Balance;
 use PHPUnit\Framework\TestCase;
+use Randock\AntiCaptcha\Balance;
 
 class BalanceTest extends TestCase
 {
     /**
      * @var float
      */
-    const BALANCE = 25.32;
+    public const BALANCE = 25.32;
 
     public function testInstanceOf()
     {
         $balance = self::newBalance();
-        $this->assertInstanceOf( Balance::class, $balance);
+        $this->assertInstanceOf(Balance::class, $balance);
     }
 
     public function testGettersAndSetters()
@@ -27,7 +29,8 @@ class BalanceTest extends TestCase
     /**
      * @return Balance
      */
-    public static function newBalance(): Balance {
+    public static function newBalance(): Balance
+    {
         return new Balance(self::BALANCE);
     }
 }

@@ -37,7 +37,7 @@ class TasResultTest extends TestCase
 
         $client = ClientTest::newClient(
             [
-                new Response(200, [], json_encode($body))
+                new Response(200, [], json_encode($body)),
             ]
         );
 

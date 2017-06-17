@@ -13,17 +13,17 @@ class ImageToTextTaskTest extends TestCase
     /**
      * @var int
      */
-    const MIN_LENGTH = 1231;
+    public const MIN_LENGTH = 1231;
 
     /**
      * @var int
      */
-    const MAX_LENGTH = 39493;
+    public const MAX_LENGTH = 39493;
 
     /**
      * @var string
      */
-    const BODY = 'asdf9DF(DSFJDF';
+    public const BODY = 'asdf9DF(DSFJDF';
 
     /**
      * Test instance of task is task.
@@ -46,17 +46,15 @@ class ImageToTextTaskTest extends TestCase
     }
 
     /**
-     * Test if the class converts to array correctly
+     * Test if the class converts to array correctly.
      */
     public function testToArray()
     {
-
         $imageToTextTask = self::newImageToTextTask();
         $imageToTextTask->setBody(self::BODY);
 
         $expected = [
             'task' => [
-
                 'type' => ImageToTextTask::TASK_TYPE,
                 'body' => self::BODY,
                 'phrase' => false,
@@ -65,14 +63,14 @@ class ImageToTextTaskTest extends TestCase
                 'math' => false,
                 'minLength' => 0,
                 'maxLength' => 0,
-            ]
+            ],
         ];
 
         $this->assertSame($expected, $imageToTextTask->toArray());
     }
 
     /**
-     * Test if all getters and setters are working
+     * Test if all getters and setters are working.
      */
     public function testGettersAndSetters()
     {
@@ -108,12 +106,12 @@ class ImageToTextTaskTest extends TestCase
     }
 
     /**
-     * Test setting the body of the task from a filename
+     * Test setting the body of the task from a filename.
      */
-    public function testSetBodyFromFile() {
-
+    public function testSetBodyFromFile()
+    {
         // path to file
-        $filename = dirname(__FILE__) . '/../../captcha.png';
+        $filename = __DIR__ . '/../../captcha.png';
 
         // set the body
         $task = self::newImageToTextTask();
@@ -128,7 +126,6 @@ class ImageToTextTaskTest extends TestCase
         // test exception
         $this->expectException(FileNotFoundException::class);
         $task->setBodyFromFile('xx');
-
     }
 
     /**

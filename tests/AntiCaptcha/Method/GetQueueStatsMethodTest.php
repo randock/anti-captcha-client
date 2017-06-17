@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Randock\AntiCaptcha\Method;
 
-use Randock\AntiCaptcha\Method\GetQueueStatsMethod;
 use PHPUnit\Framework\TestCase;
+use Randock\AntiCaptcha\Method\GetQueueStatsMethod;
 
 class GetQueueStatsMethodTest extends TestCase
 {
     /**
      * @var int
      */
-    const QUEUE_ID = GetQueueStatsMethod::QUEUE_ENGLISH_IMAGE_TO_TEXT;
+    public const QUEUE_ID = GetQueueStatsMethod::QUEUE_ENGLISH_IMAGE_TO_TEXT;
 
     /**
      * Test right instance.
@@ -21,7 +23,7 @@ class GetQueueStatsMethodTest extends TestCase
     }
 
     /**
-     * Test the constructor
+     * Test the constructor.
      */
     public function testConstructor()
     {
@@ -30,13 +32,13 @@ class GetQueueStatsMethodTest extends TestCase
     }
 
     /**
-     * Test conversion to array
+     * Test conversion to array.
      */
     public function testToArray()
     {
         $getQueueStatsMethod = self::newGetQueueStatsMethod();
         $expected = [
-            'queueId' => $getQueueStatsMethod->getQueueId()
+            'queueId' => $getQueueStatsMethod->getQueueId(),
         ];
         $this->assertSame($expected, $getQueueStatsMethod->toArray());
     }
