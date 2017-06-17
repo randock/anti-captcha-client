@@ -91,6 +91,37 @@ class TaskResultTest extends TestCase
     }
 
     /**
+     * Check if the isReady method works as expected
+     */
+    public function testIsReady() {
+
+        // ready
+        $taskResult = new TaskResult(TaskResult::STATUS_READY);
+        $this->assertTrue($taskResult->isReady());
+
+        // not ready
+        $taskResult = new TaskResult(TaskResult::STATUS_PROCESSING);
+        $this->assertFalse($taskResult->isReady());
+
+    }
+
+    /**
+     * Check if the isProcessing method works as expected
+     */
+    public function testIsProcessing() {
+
+        // ready
+        $taskResult = new TaskResult(TaskResult::STATUS_READY);
+        $this->assertFalse($taskResult->isProcessing());
+
+        // not ready
+        $taskResult = new TaskResult(TaskResult::STATUS_PROCESSING);
+        $this->assertTrue($taskResult->isProcessing());
+
+    }
+
+
+    /**
      * @return TaskResult
      */
     public static function newTaskResult(): TaskResult

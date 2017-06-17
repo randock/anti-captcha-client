@@ -44,7 +44,7 @@ try {
 
         $taskResult = $client->getTaskResult($task);
                 
-    } while (TaskResult::STATUS_PROCESSING === $taskResult->getStatus());
+    } while ($taskResult->isProcessing());
     
     // grab response text
     $captcha = $taskResult->getSolution()->getText();

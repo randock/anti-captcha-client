@@ -6,6 +6,7 @@ namespace Tests\Randock\AntiCaptcha\Task;
 
 use PHPUnit\Framework\TestCase;
 use Randock\AntiCaptcha\Task\ImageToTextTask;
+use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 
 class ImageToTextTaskTest extends TestCase
 {
@@ -54,14 +55,17 @@ class ImageToTextTaskTest extends TestCase
         $imageToTextTask->setBody(self::BODY);
 
         $expected = [
-            'type' => ImageToTextTask::TASK_TYPE,
-            'body' => self::BODY,
-            'phrase' => false,
-            'case' => true,
-            'numeric' => ImageToTextTask::NUMERIC_NO_LIMITS,
-            'math' => false,
-            'minLength' => 0,
-            'maxLength' => 0,
+            'task' => [
+
+                'type' => ImageToTextTask::TASK_TYPE,
+                'body' => self::BODY,
+                'phrase' => false,
+                'case' => true,
+                'numeric' => ImageToTextTask::NUMERIC_NO_LIMITS,
+                'math' => false,
+                'minLength' => 0,
+                'maxLength' => 0,
+            ]
         ];
 
         $this->assertSame($expected, $imageToTextTask->toArray());
@@ -101,6 +105,30 @@ class ImageToTextTaskTest extends TestCase
         // numeric
         $imageToTextTask->setNumeric(ImageToTextTask::NUMERIC_ONLY_LETTERS);
         $this->assertSame(ImageToTextTask::NUMERIC_ONLY_LETTERS, $imageToTextTask->getNumeric());
+    }
+
+    /**
+     * Test setting the body of the task from a filename
+     */
+    public function testSetBodyFromFile() {
+
+        // path to file
+        $filename = dirname(__FILE__) . '/../../captcha.png';
+
+        // set the body
+        $task = self::newImageToTextTask();
+        $task->setBodyFromFile($filename);
+
+        // should be the base64 encoded contents
+        $this->assertSame(
+            base64_encode(file_get_contents($filename)),
+            $task->getBody()
+        );
+
+        // test exception
+        $this->expectException(FileNotFoundException::class);
+        $task->setBodyFromFile('xx');
+
     }
 
     /**

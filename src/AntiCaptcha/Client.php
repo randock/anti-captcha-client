@@ -117,7 +117,7 @@ class Client
         $taskResult = new TaskResult($response->status);
         if ($taskResult->getStatus() === TaskResult::STATUS_READY) {
             $taskResult->setCost((float) $response->cost);
-            $taskResult->setCreateTime(new \DateTime(sprintf('@%s', $response->createdTime)));
+            $taskResult->setCreateTime(new \DateTime(sprintf('@%s', $response->createTime)));
             $taskResult->setEndTime(new \DateTime(sprintf('@%s', $response->endTime)));
             $taskResult->setIp($response->ip);
             $taskResult->setSolveCount((int) $response->solveCount);

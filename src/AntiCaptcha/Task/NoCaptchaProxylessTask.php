@@ -83,9 +83,11 @@ class NoCaptchaProxylessTask extends Task implements ArraySerializable
     public function toArray(): array
     {
         return [
-            'type' => self::TASK_TYPE,
-            'websiteURL' => $this->getWebsiteUrl(),
-            'websiteKey' => $this->getWebsiteKey(),
+            'task' => [
+                'type' => self::TASK_TYPE,
+                'websiteURL' => $this->getWebsiteUrl(),
+                'websiteKey' => $this->getWebsiteKey(),
+            ]
         ];
     }
 }

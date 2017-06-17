@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Randock\AntiCaptcha\Task;
 
 use Randock\AntiCaptcha\Definition\ArraySerializable;
+use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 
 class ImageToTextTask extends Task implements ArraySerializable
 {
@@ -107,6 +108,29 @@ class ImageToTextTask extends Task implements ArraySerializable
 
         return $this;
     }
+
+    /**
+     * Sets the captcha body from a given filename
+     *
+     * @param $filename
+     *
+     * @throws FileNotFoundException
+     * @return ImageToTextTask
+     */
+    public function setBodyFromFile($filename): ImageToTextTask
+    {
+        // check if the file exists
+        if (!file_exists($filename)) {
+            throw new FileNotFoundException(0, null, null, $filename);
+        }
+
+        // set body of file
+        $this->setBody(base64_encode(file_get_contents($filename)));
+
+        return $this;
+    }
+
+
 
     /**
      * @return bool
@@ -234,14 +258,16 @@ class ImageToTextTask extends Task implements ArraySerializable
     public function toArray(): array
     {
         return [
-            'type' => self::TASK_TYPE,
-            'body' => $this->getBody(),
-            'phrase' => $this->getPhrase(),
-            'case' => $this->getCaseSensitive(),
-            'numeric' => $this->getNumeric(),
-            'math' => $this->getMath(),
-            'minLength' => $this->getMinLength(),
-            'maxLength' => $this->getMaxLength(),
+            'task' => [
+                'type' => self::TASK_TYPE,
+                'body' => $this->getBody(),
+                'phrase' => $this->getPhrase(),
+                'case' => $this->getCaseSensitive(),
+                'numeric' => $this->getNumeric(),
+                'math' => $this->getMath(),
+                'minLength' => $this->getMinLength(),
+                'maxLength' => $this->getMaxLength(),
+            ]
         ];
     }
 }

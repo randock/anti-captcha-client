@@ -30,7 +30,7 @@ class TasResultTest extends TestCase
             ],
             'cost' => '0.0007',
             'ip' => '127.0.0.1',
-            'createdTime' => 1472205564,
+            'createTime' => 1472205564,
             'endTime' => 1472205570,
             'solveCount' => '0',
         ];
@@ -58,7 +58,7 @@ class TasResultTest extends TestCase
         $this->assertSame($body['ip'], $taskResult->getIp());
         $this->assertSame((int) $body['solveCount'], $taskResult->getSolveCount());
 
-        $this->assertEquals(new \DateTime(sprintf('@%s', $body['createdTime'])), $taskResult->getCreateTime());
+        $this->assertEquals(new \DateTime(sprintf('@%s', $body['createTime'])), $taskResult->getCreateTime());
         $this->assertEquals(new \DateTime(sprintf('@%s', $body['endTime'])), $taskResult->getEndTime());
     }
 
@@ -75,7 +75,7 @@ class TasResultTest extends TestCase
             ],
             'cost' => '0.0007',
             'ip' => '127.0.0.1',
-            'createdTime' => 1472205564,
+            'createTime' => 1472205564,
             'endTime' => 1472205570,
             'solveCount' => '0',
         ];
@@ -102,7 +102,7 @@ class TasResultTest extends TestCase
         $this->assertSame($body['ip'], $taskResult->getIp());
         $this->assertSame((int) $body['solveCount'], $taskResult->getSolveCount());
 
-        $this->assertEquals(new \DateTime(sprintf('@%s', $body['createdTime'])), $taskResult->getCreateTime());
+        $this->assertEquals(new \DateTime(sprintf('@%s', $body['createTime'])), $taskResult->getCreateTime());
         $this->assertEquals(new \DateTime(sprintf('@%s', $body['endTime'])), $taskResult->getEndTime());
     }
 
@@ -143,7 +143,7 @@ class TasResultTest extends TestCase
             ],
             'cost' => '0.0007',
             'ip' => '127.0.0.1',
-            'createdTime' => 1472205564,
+            'createTime' => 1472205564,
             'endTime' => 1472205570,
             'solveCount' => '0',
         ];

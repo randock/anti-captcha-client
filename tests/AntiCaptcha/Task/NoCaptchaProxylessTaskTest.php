@@ -46,9 +46,11 @@ class NoCaptchaProxylessTaskTest extends TestCase
         $noCaptchaProxylessTask = self::newNoCaptchaProxylessTask();
 
         $expected = [
-            'type' => NoCaptchaProxylessTask::TASK_TYPE,
-            'websiteURL' => self::WEBSITE_URL,
-            'websiteKey' => self::WEBSITE_KEY
+            'task'=> [
+                'type' => NoCaptchaProxylessTask::TASK_TYPE,
+                'websiteURL' => self::WEBSITE_URL,
+                'websiteKey' => self::WEBSITE_KEY
+            ]
         ];
 
         $this->assertSame($expected, $noCaptchaProxylessTask->toArray());
