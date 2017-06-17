@@ -21,7 +21,7 @@ For example, to create a new task:
 
 use Randock\AntiCaptcha\Client;
 use Randock\AntiCaptcha\Task\ImageToTextTask;
-use Randock\AntiCaptcha\TaskResult;
+use Randock\AntiCaptcha\Solution\ImageToTextSolution;
 use Randock\AntiCaptcha\Exception\InvalidRequestException;
 
 // create a new client
@@ -29,27 +29,28 @@ $client = new Client('<<API KEY>>');
 
 // create the task to be send
 $task = new ImageToTextTask();
+
+// set the body
 $task->setBody('<<BASE 64 of captcha>>');
+//$task->setBodyFromFile($file);
 
 try {
-
     // send the task to anti-captcha.com
     $task = $client->createTask($task);
 
-    // get the status from anti-captcha.com (loop if necessary)
     do {
-
         // wait a bit before (re)trying
         sleep(2);
 
         $taskResult = $client->getTaskResult($task);
-                
     } while ($taskResult->isProcessing());
-    
-    // grab response text
-    $captcha = $taskResult->getSolution()->getText();
 
+    /* @var ImageToTextSolution $solution */
+    $solution = $taskResult->getSolution();
+
+    // grab captcha text
+    $captcha = $solution->getText();
 } catch (InvalidRequestException $exception) {
-        
 }
+
 ```
