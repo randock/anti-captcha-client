@@ -16,6 +16,21 @@ class NoCaptchaProxylessTask extends Task implements ArraySerializable
     /**
      * @var string
      */
+    public const TASK_TYPE_V3 = 'RecaptchaV3TaskProxyless';
+
+    /**
+     * @var string
+     */
+    private $selectedTaskType;
+
+    /**
+     * @var string|null
+     */
+    private $minScore;
+
+    /**
+     * @var string
+     */
     private $websiteUrl = null;
 
     /**
@@ -26,15 +41,33 @@ class NoCaptchaProxylessTask extends Task implements ArraySerializable
     /**
      * NoCaptchaProxylessTask constructor.
      *
-     * @param string   $websiteUrl
-     * @param string   $websiteKey
-     * @param int|null $id
+     * @param string      $websiteUrl
+     * @param string      $websiteKey
+     * @param int|null    $id
+     * @param int         $version
+     * @param string|null $minScore
      */
-    public function __construct(string $websiteUrl, string $websiteKey, int $id = null)
+    public function __construct(
+        string $websiteUrl,
+        string $websiteKey,
+        int $id = null,
+        int $version = 2,
+        ?string $minScore = null
+    )
     {
         parent::__construct($id);
         $this->websiteUrl = $websiteUrl;
         $this->websiteKey = $websiteKey;
+
+        switch ($version) {
+            case 3:
+                $this->selectedTaskType = self::TASK_TYPE_V3;
+                $this->minScore = $minScore;
+                break;
+            default:
+                $this->selectedTaskType = self::TASK_TYPE;
+                break;
+        }
     }
 
     /**
@@ -78,16 +111,31 @@ class NoCaptchaProxylessTask extends Task implements ArraySerializable
     }
 
     /**
+     * @return string
+     */
+    public function getSelectedTaskType(): string
+    {
+        return $this->selectedTaskType;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function toArray(): array
     {
+        $taskData = [
+            'type' => $this->getSelectedTaskType(),
+            'websiteURL' => $this->getWebsiteUrl(),
+            'websiteKey' => $this->getWebsiteKey(),
+        ];
+
+        if( self::TASK_TYPE_V3 === $this->getSelectedTaskType() ){
+            $taskData['minScore'] = (float) ($this->minScore ?? '0.9');
+            $taskData['pageAction'] = \md5((string) \time());
+        }
+
         return [
-            'task' => [
-                'type' => self::TASK_TYPE,
-                'websiteURL' => $this->getWebsiteUrl(),
-                'websiteKey' => $this->getWebsiteKey(),
-            ],
+            'task' => $taskData,
         ];
     }
 }
