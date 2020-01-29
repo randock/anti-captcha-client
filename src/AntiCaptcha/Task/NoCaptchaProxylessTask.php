@@ -24,7 +24,7 @@ class NoCaptchaProxylessTask extends Task implements ArraySerializable
     private $selectedTaskType;
 
     /**
-     * @var string|null
+     * @var float|null
      */
     private $minScore;
 
@@ -45,14 +45,14 @@ class NoCaptchaProxylessTask extends Task implements ArraySerializable
      * @param string      $websiteKey
      * @param int|null    $id
      * @param int         $version
-     * @param string|null $minScore
+     * @param float|null $minScore
      */
     public function __construct(
         string $websiteUrl,
         string $websiteKey,
         int $id = null,
         int $version = 2,
-        ?string $minScore = null
+        ?float $minScore = null
     )
     {
         parent::__construct($id);
@@ -130,7 +130,7 @@ class NoCaptchaProxylessTask extends Task implements ArraySerializable
         ];
 
         if( self::TASK_TYPE_V3 === $this->getSelectedTaskType() ){
-            $taskData['minScore'] = (float) ($this->minScore ?? '0.9');
+            $taskData['minScore'] = $this->minScore ?? 0.9;
             $taskData['pageAction'] = \md5((string) \time());
         }
 
