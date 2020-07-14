@@ -8,6 +8,8 @@ use Randock\AntiCaptcha\Definition\ArraySerializable;
 
 class NoCaptchaProxylessTask extends Task implements ArraySerializable
 {
+    const DEFAULT_MIN_SCORE = 0.9;
+
     /**
      * @var string
      */
@@ -29,6 +31,11 @@ class NoCaptchaProxylessTask extends Task implements ArraySerializable
     private $minScore;
 
     /**
+     * @var string|null
+     */
+    private $pageAction;
+
+    /**
      * @var string
      */
     private $websiteUrl = null;
@@ -46,13 +53,15 @@ class NoCaptchaProxylessTask extends Task implements ArraySerializable
      * @param int|null    $id
      * @param int         $version
      * @param float|null $minScore
+     * @param string|null $pageAction
      */
     public function __construct(
         string $websiteUrl,
         string $websiteKey,
         int $id = null,
         int $version = 2,
-        ?float $minScore = null
+        ?float $minScore = null,
+        ?string $pageAction = null
     )
     {
         parent::__construct($id);
@@ -63,6 +72,7 @@ class NoCaptchaProxylessTask extends Task implements ArraySerializable
             case 3:
                 $this->selectedTaskType = self::TASK_TYPE_V3;
                 $this->minScore = $minScore;
+                $this->pageAction = $pageAction;
                 break;
             default:
                 $this->selectedTaskType = self::TASK_TYPE;
@@ -130,8 +140,8 @@ class NoCaptchaProxylessTask extends Task implements ArraySerializable
         ];
 
         if( self::TASK_TYPE_V3 === $this->getSelectedTaskType() ){
-            $taskData['minScore'] = $this->minScore ?? 0.9;
-            $taskData['pageAction'] = \md5((string) \time());
+            $taskData['minScore'] = $this->minScore ?? self::DEFAULT_MIN_SCORE;
+            $taskData['pageAction'] = $this->pageAction ?? \md5((string) \time());
         }
 
         return [
