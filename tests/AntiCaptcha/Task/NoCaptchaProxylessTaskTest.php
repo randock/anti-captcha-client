@@ -30,6 +30,11 @@ class NoCaptchaProxylessTaskTest extends TestCase
     public const NEW_WEBSITE_KEY = 'xxsadfasdf@#!#$(S_221111';
 
     /**
+     * @var string
+     */
+    public const PAGE_ACTION = 'page_action';
+
+    /**
      * Test instance of task is task.
      */
     public function testInstanceOf()
@@ -48,7 +53,27 @@ class NoCaptchaProxylessTaskTest extends TestCase
             'task' => [
                 'type' => NoCaptchaProxylessTask::TASK_TYPE,
                 'websiteURL' => self::WEBSITE_URL,
+                'websiteKey' => self::WEBSITE_KEY
+            ],
+        ];
+
+        $this->assertSame($expected, $noCaptchaProxylessTask->toArray());
+    }
+
+    /**
+     * Test if the class converts to array correctly.
+     */
+    public function testToArrayV3()
+    {
+        $noCaptchaProxylessTask = self::newNoCaptchaProxylessTaskV3();
+
+        $expected = [
+            'task' => [
+                'type' => NoCaptchaProxylessTask::TASK_TYPE,
+                'websiteURL' => self::WEBSITE_URL,
                 'websiteKey' => self::WEBSITE_KEY,
+                'minScore' => NoCaptchaProxylessTask::DEFAULT_MIN_SCORE,
+                'pageAction' => self::PAGE_ACTION,
             ],
         ];
 
@@ -84,5 +109,20 @@ class NoCaptchaProxylessTaskTest extends TestCase
     public static function newNoCaptchaProxylessTask(): NoCaptchaProxylessTask
     {
         return new NoCaptchaProxylessTask(self::WEBSITE_URL, self::WEBSITE_KEY);
+    }
+
+    /**
+     * @return NoCaptchaProxylessTask
+     */
+    public static function newNoCaptchaProxylessTaskV3(): NoCaptchaProxylessTask
+    {
+        return new NoCaptchaProxylessTask(
+            self::WEBSITE_URL,
+            self::WEBSITE_KEY,
+            null,
+            3,
+            null,
+            self::PAGE_ACTION
+        );
     }
 }
