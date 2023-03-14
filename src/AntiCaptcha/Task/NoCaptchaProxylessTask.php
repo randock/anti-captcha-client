@@ -44,13 +44,18 @@ class NoCaptchaProxylessTask extends Task implements ArraySerializable
     private $action;
 
     /**
-     * NoCaptchaProxylessTask constructor.
-     *
+     * @var bool
+     */
+    private $enterprise = false;
+
+    /**
      * @param string      $websiteUrl
      * @param string      $websiteKey
      * @param int|null    $id
      * @param int         $version
-     * @param float|null $minScore
+     * @param float|null  $minScore
+     * @param string|null $action
+     * @param bool        $enterprise
      */
     public function __construct(
         string $websiteUrl,
@@ -58,12 +63,14 @@ class NoCaptchaProxylessTask extends Task implements ArraySerializable
         int $id = null,
         int $version = 2,
         ?float $minScore = null,
-        ?string $action = null
+        ?string $action = null,
+        bool $enterprise = false
     )
     {
         parent::__construct($id);
         $this->websiteUrl = $websiteUrl;
         $this->websiteKey = $websiteKey;
+        $this->enterprise = $enterprise;
 
         switch ($version) {
             case 3:
@@ -126,6 +133,14 @@ class NoCaptchaProxylessTask extends Task implements ArraySerializable
     }
 
     /**
+     * @return bool
+     */
+    public function isEnterprise(): bool
+    {
+        return $this->enterprise;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function toArray(): array
@@ -134,6 +149,7 @@ class NoCaptchaProxylessTask extends Task implements ArraySerializable
             'type' => $this->getSelectedTaskType(),
             'websiteURL' => $this->getWebsiteUrl(),
             'websiteKey' => $this->getWebsiteKey(),
+            'isEnterprise' => $this->isEnterprise(),
         ];
 
         if( self::TASK_TYPE_V3 === $this->getSelectedTaskType() ){
